@@ -19,7 +19,7 @@ public class AutomodeDecision {
     Publisher<JsonNode> automode;
 
     @GET
-    @Path("/autostream")
+    @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
     public Publisher<JsonNode> streamAutomode() {

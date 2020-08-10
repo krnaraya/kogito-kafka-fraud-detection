@@ -79,27 +79,7 @@
 
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-1">
-            <h3 class="text-center">Fradulent Transactions for Manual Processing</h3>
-            <div class="form-group">
-                <table id="manualdecisionstable" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Reference</th>
-                        <th scope="col">Mode</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+       
         
 
     </div>
@@ -111,7 +91,7 @@
 <script src="serializetojson.js"></script>
 <script>
 
-    var source = new EventSource("/automode/autostream");
+    var source = new EventSource("/automode/stream");
     source.onmessage = function (event) {
         addToTable(event.data);
     };
@@ -131,29 +111,6 @@
         ] ).draw( false );
 
         counter++;
-    }
-
-    var manualsource = new EventSource("/manualmode/manualstream");
-    manualsource.onmessage = function (event) {
-        addToManualTable(event.data);
-    };
-
-    var manualTable = $('#manualdecisionstable').DataTable();
-    var manualCounter = 1;
-
-    function addToManualTable(manualEventdata) {
-
-        var eventManualObj = JSON.parse(manualEventdata);
-        manualTable.row.add( [
-        manualCounter,
-        eventManualObj.data.name,
-        eventManualObj.data.mode,
-        eventManualObj.data.reference,
-        eventManualObj.data.location,
-        eventManualObj.data.amount
-        ] ).draw( false );
-
-        manualCounter++;
     }
 
     $("#add").on('click', function() {
