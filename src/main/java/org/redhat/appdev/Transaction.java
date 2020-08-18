@@ -7,20 +7,22 @@ public class Transaction {
 	private String mode;
 	private String location;
     private Integer amount;
-    private Boolean flagged;
+	private Boolean flagged;
+	private Boolean isFraud;
 
 	public Transaction() {
 
 	}
 
-	public Transaction(final String name, final String reference, final String mode, final String location, final Integer amount, final Boolean flagged ) {
+	public Transaction(final String name, final String reference, final String mode, final String location, final Integer amount, final Boolean flagged, final Boolean isFraud) {
 		super();
 		this.name = name;
 		this.reference = reference;
 		this.mode = mode;
 		this.location = location;
         this.amount = amount;
-        this.flagged = flagged;
+		this.flagged = flagged;
+		this.isFraud = isFraud;
 	}
 
 	public String getName() {
@@ -69,6 +71,14 @@ public class Transaction {
 
 	public void setFlagged(final Boolean flagged) {
 		this.flagged = flagged;
+	}
+
+	public Boolean isFraud() {
+		return this.isFraud;
+	}
+
+	public void setIsFraud(final Boolean isFraud) {
+		this.isFraud = isFraud;
 	}
 
 	@Override
