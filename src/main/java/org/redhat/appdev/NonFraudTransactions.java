@@ -11,23 +11,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/automode")
-public class AutomodeDecision {
+@Path("/notfraudtrx")
+public class NonFraudTransactions {
 
     @Inject
-    @Channel("automodedecisions")
-    Publisher<JsonNode> automode;
+    @Channel("nonfraudtransactions")
+    Publisher<JsonNode> nonfraudTrx;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
-    public Publisher<JsonNode> streamAutomode() {
+    public Publisher<JsonNode> streamNonFraudTrx() {
 
-        System.out.println("transactions streaming auto mode : " + automode );
+        System.out.println("transactions streaming non fraudulent mode : " + nonfraudTrx );
 
-        return automode;
+        return nonfraudTrx;
     }
-
-
 }

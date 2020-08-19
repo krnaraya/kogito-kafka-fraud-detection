@@ -80,6 +80,48 @@
 
             </div>
         </div>
+        <div class="col-md-4 col-md-offset-1">
+            <h3 class="text-center">Fradulent Transactions to be Manually Processed</h3>
+            <div class="form-group">
+                <table id="manualmodetable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Reference</th>
+                        <th scope="col">Mode</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <h3 class="text-center">Non Fradulent Transactions</h3>
+            <div class="form-group">
+                <table id="nonfraudtable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Reference</th>
+                        <th scope="col">Mode</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
        
         
 
@@ -112,6 +154,50 @@
         ] ).draw( false );
 
         counter++;
+    }
+
+    var manualsource = new EventSource("/manualmode/stream");
+    manualsource.onmessage = function (eventManual) {
+        addToManualTable(eventManual.data);
+    };
+
+    var tManual = $('#manualmodetable').DataTable();
+    var counterManual = 1;
+
+    function addToManualTable(eventManualdata) {
+       var eventobjManual = JSON.parse(eventManualdata);
+       tManual.row.add( [
+            counterManual,
+            eventobjManual.data.name,
+            eventobjManual.data.mode,
+            eventobjManual.data.reference,
+            eventobjManual.data.location,
+            eventobjManual.data.amount
+        ] ).draw( false );
+
+        counterManual++;
+    }
+
+    var nonFraudsource = new EventSource("/notfraudtrx/stream");
+    nonFraudsource.onmessage = function (eventnonFraud) {
+        addToNonFraudTable(eventnonFraud.data);
+    };
+
+    var tNonFraud = $('#nonfraudtable').DataTable();
+    var counterNonFraud = 1;
+
+    function addToNonFraudTable(eventNonFrauddata) {
+       var eventobjNonFraud = JSON.parse(eventNonFrauddata);
+       tNonFraud.row.add( [
+            counterNonFraud,
+            eventobjNonFraud.data.name,
+            eventobjNonFraud.data.mode,
+            eventobjNonFraud.data.reference,
+            eventobjNonFraud.data.location,
+            eventobjNonFraud.data.amount
+        ] ).draw( false );
+
+        counterNonFraud++;
     }
 
     $("#add").on('click', function() {

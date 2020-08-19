@@ -3,7 +3,7 @@ kind: KafkaTopic
 metadata:
   name: transactions
   labels:
-    strimzi.io/cluster: appdev-kafka-cluster
+    strimzi.io/cluster: kogito-kafka
 spec:
   partitions: 1
   replicas: 1

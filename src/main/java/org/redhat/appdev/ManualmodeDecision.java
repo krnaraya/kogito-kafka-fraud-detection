@@ -15,11 +15,11 @@ import javax.ws.rs.core.MediaType;
 public class ManualmodeDecision {
 
     @Inject
-    @Channel("manualmodetable")
+    @Channel("manualmodedecisions")
     Publisher<JsonNode> manualmode;
 
     @GET
-    @Path("/manualstream")
+    @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
     public Publisher<JsonNode> streamManualmode() {
