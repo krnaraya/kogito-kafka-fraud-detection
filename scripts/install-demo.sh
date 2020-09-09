@@ -28,3 +28,9 @@ oc get routes appdev-kafka-cluster-kafka-bootstrap -o=jsonpath='{.status.ingress
 /Users/krnaraya/Downloads/kafka_2.13-2.5.0/bin/kafka-console-consumer.sh --bootstrap-server appdev-kafka-cluster-kafka-bootstrap-appdev-aiml-demo.apps.cluster-acfe.acfe.example.opentlc.com:443 --consumer-property security.protocol=SSL --consumer-property ssl.truststore.password=password --consumer-property ssl.truststore.location=/Users/krnaraya/source/aiml_webinar/kogito-kafka-fraud-detection/truststore.jks --topic automode --from-beginning
 
 /Users/krnaraya/Downloads/kafka_2.13-2.5.0/bin/kafka-console-consumer.sh --bootstrap-server appdev-kafka-cluster-kafka-bootstrap-appdev-aiml-demo.apps.cluster-acfe.acfe.example.opentlc.com:443 --consumer-property security.protocol=SSL --consumer-property ssl.truststore.password=password --consumer-property ssl.truststore.location=/Users/krnaraya/source/aiml_webinar/kogito-kafka-fraud-detection/truststore.jks --topic manualmode --from-beginning
+
+oc expose -n fraud-demo-dev svc/fraud-detect-classifier --hostname="http://fraud-detect-classifier-fraud-demo-dev.apps.cluster-acfe.acfe.example.opentlc.com"
+
+kogito deploy-service kogito-kafka-fraud-detection https://github.com/krnaraya/kogito-kafka-fraud-detection
+
+curl -d 'json={"data":{"ndarray":[["-4.47513271259153","5.4676845487781","-4.59495176285009","5.27550585077254","-11.3490285500915","-8.13869488434773","-10.2467554066001"]]}}' http://localhost:8081/predict
